@@ -61,7 +61,7 @@ const Signup = () => {
    
 
     try {
-      const url = `${import.meta.env.REACT_APP_NODE_BASE_URL}/userapi/createuser`;
+      const url = `${import.meta.env.VITE_NODE_BASE_URL}/userapi/createuser`;
 
       const headers = { "Content-Type": "application/json" };
 
