@@ -13,19 +13,18 @@ spec:
             name: frontend-service
             port:
               number: 80
+      # - path: /userapi/?(.*)
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: node-service
+      #       port:
+      #         number: 3000
 
-      - path: /userapi/?(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: node-service
-            port:
-              number: 3000
-
-      - path: /springapi/?(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: spring-service
-            port:
-              number: 8081
+      # - path: /springapi/?(.*)
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: spring-service
+      #       port:
+      #         number: 8081
