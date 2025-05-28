@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: full-stack-ingress
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
@@ -28,3 +29,7 @@ spec:
       #       name: spring-service
       #       port:
       #         number: 8081
+
+
+      # https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+
