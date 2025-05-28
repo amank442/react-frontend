@@ -17,6 +17,14 @@ spec:
             port:
               number: 80
 
+      - path: /signup
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+
       - path: /login
         pathType: Prefix
         backend:
