@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: vite-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vite-frontend
+    spec:
+      containers:
+      - name: vite-frontend
+        image: cicdmicrosvc1-d4g7c6aehxc5amfa.azurecr.io/omm-frontend:tag
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: frontend-config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: vite-frontend
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

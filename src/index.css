@@ -1,0 +1,305 @@
+*{
+  margin:0
+}
+
+/* LOGIN */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(https://img.freepik.com/free-vector/halftone-background-with-circles_23-2148907689.jpg?w=996&t=st=1711672835~exp=1711673435~hmac=065eddffaa416fb21b7c3ed121ce3fcb96ac64691966b9ed3191d65255fb14ed)
+ 
+}
+
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9px);
+
+}
+
+.signup-link {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  color: black !important; /* Force black color */
+  text-decoration:solid;
+  font-size: 14px;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* SIGNUP */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f6f8;
+   background-image: url(https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149003418.jpg)
+}
+
+.signup-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Blur effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-link {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  color: #000203;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+
+/* Monthly-sales */
+
+
+/* MonthlySales.css */
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filters-container .MuiFormControl-root {
+  min-width: 150px;
+  flex: 1;
+}
+
+.sales-table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 16px;
+}
+
+.sales-table {
+  min-width: 600px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table th,
+.sales-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+}
+
+.sales-table th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+  }
+
+  .sales-table th,
+  .sales-table td {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+/* welcome page */
+/* Welcome.css */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.welcome-container {
+  text-align: center;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: bold;
+  color: #2a7efc;
+}
+
+.tagline {
+  font-size: 18px;
+  color: #555;
+}
+
+.main-content h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.main-content p {
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.feature-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 280px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  color: #2a7efc;
+  margin-bottom: 10px;
+}
+
+.cta-buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 24px;
+  margin: 0 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-btn {
+  background-color: #2a7efc;
+  color: white;
+}
+
+.signup-btn:hover {
+  background-color: #1b5edb;
+}
+
+.login-btn {
+  background-color: #eee;
+  color: #333;
+}
+
+.login-btn:hover {
+  background-color: #ddd;
+}
+
+/* Billing.css */
+
+.billing-container {
+  padding: 20px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.billing-card {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.billing-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.cart-section {
+  margin-top: 30px;
+}
+
+.cart-section .MuiTypography-root {
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.MuiTableCell-head {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 700;
+}
+
+.MuiTableRow-root:hover {
+  background-color: #e3f2fd;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.download-btn {
+  margin-top: 20px;
+}
+
+.MuiButton-containedSecondary {
+  background-color: #1976d2;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.MuiButton-containedSecondary:hover {
+  background-color: #155fa0;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 600px) {
+  .billing-card {
+    margin-bottom: 20px;
+  }
+
+  .cart-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-footer > * {
+    margin-bottom: 10px;
+  }
+}
+
