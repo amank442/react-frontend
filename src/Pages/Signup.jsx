@@ -61,7 +61,8 @@ const Signup = () => {
    
 
     try {
-      const url = `${import.meta.env.VITE_NODE_BASE_URL}/userapi/createuser`;
+      const url = "http://128.24.75.155:3000/userapi/createuser";
+      
 
       const headers = { "Content-Type": "application/json" };
 
