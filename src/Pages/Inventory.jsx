@@ -44,7 +44,7 @@ const Inventory = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_NODE_BASE_URL}/itemapi/getitems/${userdata.id}`,
+        `http://48.214.33.168:3000/itemapi/getitems/${userdata.id}`,
         {
           params: { page, size },
           headers: { Authorization: token },
@@ -106,7 +106,7 @@ const Inventory = () => {
     
     try {
       await axios.patch(
-        `${import.meta.env.VITE_NODE_BASE_URL}/itemapi/updateitem`,
+        `http://48.214.33.168:3000/itemapi/updateitem`,
         {
           itemid: editItem.itemid,
           price: editPrice,
@@ -150,7 +150,7 @@ const Inventory = () => {
     //calling the api
     try {
 
-      await axios.delete(`${import.meta.env.VITE_NODE_BASE_URL}/itemapi/deleteitem/${itemId}`, {
+      await axios.delete(`http://48.214.33.168:3000/itemapi/deleteitem/${itemId}`, {
 
         headers: { Authorization: token },
       });
@@ -215,7 +215,7 @@ const Inventory = () => {
     try {
       await axios.post(
         
-        `${import.meta.env.VITE_NODE_BASE_URL}/itemapi/additem/${userdata.id}`,
+        `http://48.214.33.168:3000/itemapi/additem/${userdata.id}`,
         {
           name: newName,
           price: Number(newPrice).toFixed(2),

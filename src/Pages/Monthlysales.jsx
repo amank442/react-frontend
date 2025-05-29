@@ -71,7 +71,7 @@ const MonthlySales = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_NODE_BASE_URL}/billapi/monthly-sales-report/${userdata.id}`,
+        `http://48.214.33.168:3000/billapi/monthly-sales-report/${userdata.id}`,
         {
           params: {
             month,

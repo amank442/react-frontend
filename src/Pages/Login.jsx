@@ -37,7 +37,7 @@ const Login = () => {
       else {
 
         try {
-          const url = `${import.meta.env.VITE_NODE_BASE_URL}/userapi/loginuser`;
+          const url = "http://48.214.33.168:3000/userapi/loginuser";
 
           const headers = { "Content-Type": "application/json" };
 

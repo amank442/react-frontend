@@ -46,7 +46,7 @@ const Billing = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const url = `${import.meta.env.VITE_NODE_BASE_URL}/userapi/userallitems/${userdata.id}`;
+        const url = `http://48.214.33.168:3000/userapi/userallitems/${userdata.id}`;
         const res = await axios.get(url, {
           headers: { Authorization: token },
         });
@@ -156,7 +156,7 @@ const Billing = () => {
     const billdetails = { customername, billitemdtos };
 
     try {
-      const url = `${import.meta.env.VITE_NODE_BASE_URL}/billapi/createbill/${userdata.id}`;
+      const url = `http://48.214.33.168:3000/billapi/createbill/${userdata.id}`;
 
       const response = await axios.post(url, billdetails, {
         headers: {
