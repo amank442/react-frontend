@@ -61,7 +61,7 @@ const Signup = () => {
    
 
     try {
-      const url = "http://128.24.75.155:3000/userapi/createuser";
+      const url = "http://4.153.7.248/userapi/createuser";
       
 
       const headers = { "Content-Type": "application/json" };
