@@ -17,9 +17,9 @@ spec:
         image: cicdmicrosvc1-d4g7c6aehxc5amfa.azurecr.io/omm-frontend:tag
         ports:
         - containerPort: 80
-        envFrom:
-        - configMapRef:
-            name: frontend-config
+        # envFrom:
+        # - configMapRef:
+        #     name: frontend-config
 ---
 
 apiVersion: v1
