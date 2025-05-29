@@ -16,14 +16,13 @@ spec:
             name: frontend-service
             port:
               number: 80
-      # - path: /signup
-      #   pathType: Prefix
-      #   backend:
-      #     service:
-      #       name: frontend-service
-      #       port:
-      #         number: 80
-
+      - path: /userapi/*
+        pathType: Prefix
+        backend:
+          service:
+            name: node-service
+            port:
+              number: 3000
       # - path: /login
       #   pathType: Prefix
       #   backend:
