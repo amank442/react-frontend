@@ -57,20 +57,18 @@ pipeline{
         }
          }
         
-         stage('Tag for ACR'){
+      stage('Tag for ACR'){
             steps{
                 sh """ docker tag ${Local_Image} ${ACR_IMAGE} """
             }
         }
         
-           stage('Login AND PUSH to ACR'){
+           stage('Login AND Push to ACR'){
             steps{
                 withCredentials([usernamePassword(credentialsId:'acr-creds',usernameVariable:'USERNAME',passwordVariable:'PASSWORD')]){
-                    sh """ docker login ${ACR_NAME}.azurecr.io -u ${USERNAME} -p ${PASSWORD} 
-                    
-                           'docker push ${ACR_IMAGE}'
-                    """
+                    sh """ docker login ${ACR_NAME}.azurecr.io -u ${USERNAME} -p ${PASSWORD} """
                 }
+                sh 'docker push ${ACR_IMAGE}'
             }
         }
         
