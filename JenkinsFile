@@ -1,0 +1,120 @@
+pipeline{
+    agent any
+    
+     parameters {
+        string(name: 'SERVICE_NAME', defaultValue: 'omm-frontend' , description : 'Image / repository name')
+        string(name: 'IMAGE_TAG', defaultValue: "" , description : 'Docker Image Tag')
+    }
+        
+        environment {
+        NODE_HOME = tool name: 'NODEJS 20'
+        DISABLE_ESLINT_PLUGIN = 'true'
+     Local_Image = "${params.SERVICE_NAME}:${params.IMAGE_TAG != '' ? params.IMAGE_TAG : BUILD_NUMBER}"
+     ACR_NAME = 'cicdmicrosvc1-d4g7c6aehxc5amfa'
+      KUBECONFIG = "${WORKSPACE}/kubeconfig"
+      IMAGE_TAG = "${BUILD_NUMBER}"
+     ACR_IMAGE = "${ACR_NAME}.azurecr.io/${params.SERVICE_NAME}:${params.IMAGE_TAG != '' ? params.IMAGE_TAG : BUILD_NUMBER}"
+       
+       
+       
+       
+       
+    }
+        
+        
+        
+        
+        stages {
+        // stage('Checkout code'){
+        //     steps {
+        //         git url: 'https://github.com/amank442/react-frontend.git',
+        //         branch: 'main'
+        //     }
+        // }
+        
+ 
+
+        stage('Build React') {
+            steps {
+                sh "rm -rf dist/"
+                sh "${NODE_HOME}/bin/npm install"
+                sh "${NODE_HOME}/bin/npm run build"
+            }
+        }
+      
+          stage('Docker Build'){
+            steps{
+                sh "docker build -f Dockerfile -t ${Local_Image} ."
+            }
+        }
+        
+         stage('Triviy Scan'){
+            steps{
+                sh """  trivy image --format  template --template @/usr/share/trivy/templates/html.tpl  -o trivy_report.html   --severity CRITICAL,HIGH ${Local_Image}
+                       wkhtmltopdf trivy_report.html trivy_report.pdf 
+                """
+                 archiveArtifacts artifacts: 'trivy_report.pdf'
+        }
+         }
+        
+         stage('Tag for ACR'){
+            steps{
+                sh """ docker tag ${Local_Image} ${ACR_IMAGE} """
+            }
+        }
+        
+           stage('Login AND PUSH to ACR'){
+            steps{
+                withCredentials([usernamePassword(credentialsId:'acr-creds',usernameVariable:'USERNAME',passwordVariable:'PASSWORD')]){
+                    sh """ docker login ${ACR_NAME}.azurecr.io -u ${USERNAME} -p ${PASSWORD} 
+                    
+                           'docker push ${ACR_IMAGE}'
+                    """
+                }
+            }
+        }
+        
+        //       stage('Push to ACR'){
+        //     steps {
+        //         sh 'docker push ${ACR_IMAGE}'
+        //     }
+        // }
+        
+            
+        stage('Prepare and Deploy to AKS'){
+            steps{
+                withCredentials([file(credentialsId:'aks-kubeconfig',variable:'KUBECONFIG_FILE')]){
+                    sh 'rm -f $KUBECONFIG'
+                    sh 'cp $KUBECONFIG_FILE $KUBECONFIG'
+                }
+                 script{
+                    sh "sed -i \"s/tag/${IMAGE_TAG}/g\" K8s/frontend-deployment.yaml"
+            }
+             sh """
+               
+                kubectl apply -f K8s/frontend-config.yaml
+                 kubectl apply -f K8s/frontend-deployment.yaml
+                 kubectl apply -f K8s/frontend-ingress.yaml
+                
+                """
+        }
+        
+        // stage('Deploy to AKS'){
+        //     steps{
+        //         script{
+        //             sh "sed -i \"s/tag/${IMAGE_TAG}/g\" K8s/frontend-deployment.yaml"
+                    
+        //         }
+        //         sh """
+               
+        //         kubectl apply -f K8s/frontend-config.yaml
+        //          kubectl apply -f K8s/frontend-deployment.yaml
+        //          kubectl apply -f K8s/frontend-ingress.yaml
+                
+        //         """
+        //     }
+        // }
+        
+        
+        }
+}
