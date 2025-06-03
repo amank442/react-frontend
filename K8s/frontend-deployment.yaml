@@ -23,14 +23,14 @@ spec:
 
         readinessProbe:
           httpGet:
-            path: /
+            path: /index.html
             port: 80
           initialDelaySecond: 2
           peroidSecond: 10
 
         livenessProbe:
           httpGet:
-            path: /
+            path: /index.html
             port: 80
           initialDelaySecond: 10
           periordSecond: 20
