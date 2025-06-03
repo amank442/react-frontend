@@ -26,14 +26,14 @@ spec:
             path: /index.html
             port: 80
           initialDelaySeconds: 2
-          peroidSeconds: 10
+          periodSeconds: 10
 
         livenessProbe:
           httpGet:
             path: /index.html
             port: 80
           initialDelaySeconds: 10
-          periordSeconds: 20
+          periodSeconds: 20
 ---
 
 apiVersion: v1
