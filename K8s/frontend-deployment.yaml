@@ -20,6 +20,20 @@ spec:
         # envFrom:
         # - configMapRef:
         #     name: frontend-config
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySecond: 2
+          peroidSecond: 10
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySecond: 10
+          periordSecond: 20
 ---
 
 apiVersion: v1
