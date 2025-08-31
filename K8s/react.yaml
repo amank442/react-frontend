@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vite-frontend
+  template:
+    metadata:
+      labels:
+        app: vite-frontend
+    spec:
+      containers:
+        - name: vite-frontend
+          image: yourdockerhubusername/vite-frontend:IMAGE_TAG
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: vite-frontend
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
