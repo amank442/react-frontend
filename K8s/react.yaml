@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: vite-frontend
-          image: yourdockerhubusername/vite-frontend:IMAGE_TAG
+          image: aman3146/vite-frontend:IMAGE_TAG
           ports:
             - containerPort: 80
           readinessProbe:
