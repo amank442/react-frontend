@@ -2,45 +2,53 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "frontend"
+        IMAGE_NAME = 'aman3146/vite-frontend'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
     }
 
     stages {
-
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git url: 'https:github.com/amank442/react-frontend', branch: 'main'
+                git url: 'https://github.com/amank442/react-frontend.git', branch: 'main'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh "docker build -t ${FULL_IMAGE} ."
+                sh "docker build -t ${FULL_IMAGE} ."
+            }
+        }
+
+        stage('Docker Hub Login & Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh """
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker push ${FULL_IMAGE}
+                    """
                 }
+            }
+        }
+
+        stage('Prepare K8s YAML') {
+            steps {
+               sed -i 's|IMAGE_TAG|'"${IMAGE_TAG}"'|g' k8s/react.yaml
+
             }
         }
 
         stage('Deploy to Minikube') {
             steps {
-                script {
-                    sh "sed 's|IMAGE_TAG|${IMAGE_TAG}|g' k8s-deployment.yaml > k8s-deployment-final.yaml"
-                    sh "kubectl apply -f k8s-deployment-final.yaml"
-                }
+                sh "kubectl apply -f k8s/react.yaml"
             }
         }
-
     }
 
     post {
         success {
-            echo "App deployed successfully!"
-            sh "minikube service html-demo-service --url"
-        }
-        failure {
-            echo "Pipeline failed!"
+            echo " Deployment successful!"
+           
         }
     }
 }
