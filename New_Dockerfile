@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "frontend"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git url: 'https:github.com/amank442/react-frontend', branch: 'main'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${FULL_IMAGE} ."
+                }
+            }
+        }
+
+        stage('Deploy to Minikube') {
+            steps {
+                script {
+                    sh "sed 's|IMAGE_TAG|${IMAGE_TAG}|g' k8s-deployment.yaml > k8s-deployment-final.yaml"
+                    sh "kubectl apply -f k8s-deployment-final.yaml"
+                }
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "App deployed successfully!"
+            sh "minikube service html-demo-service --url"
+        }
+        failure {
+            echo "Pipeline failed!"
+        }
+    }
+}
